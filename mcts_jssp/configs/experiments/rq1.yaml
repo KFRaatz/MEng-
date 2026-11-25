@@ -1,0 +1,13 @@
+# RQ1 (Table 3.6): MWKR against U, over all instances and within each size class.
+inherits: ../base.yaml
+experiment: rq1
+description: Fixed rollout distributions on the OR-Library benchmark
+instances: all
+budgets:
+  - {iterations: 25}
+  - {iterations: 50}
+  - {iterations: 100}
+  - {iterations: 200}
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: tuned}

@@ -1,0 +1,37 @@
+# Tiny settings that run the whole pipeline in a few minutes on a laptop.
+# They exercise every command; their results mean nothing.
+inherits: ../base.yaml
+paths:
+  artifacts: smoke_out/artifacts
+  results: smoke_out/results
+runs: 2
+entropy:
+  default_size: [6, 6]
+  calibration: {instances: 20}
+  selection:
+    instances: 4
+    iterations: 20
+    configurations:
+      - {name: MWKR}
+      - {name: LR, model: lr_6x6}
+      - {name: AZ, model: az_6x6}
+time_budget: {repeats: 1}
+stochastic: {scenarios: 5}
+training:
+  episodes_per_generation: 6
+  iterations: 20
+  max_generations: 4
+  validation_instances: 20
+  learning_rate: 1.0e-3
+tuning: {trials: 2, size: [6, 6], max_generations: 2}
+models:
+  _replace: true
+  lr_6x6:        {kind: gin,  n: 6,  m: 6}
+  lr_10x10:      {kind: gin,  n: 10, m: 10}
+  az_6x6:        {kind: ffnn, n: 6,  m: 6}
+  az_10x10:      {kind: ffnn, n: 10, m: 10}
+  lr_6x6_s010:   {kind: gin,  n: 6,  m: 6,  sigma: 0.1}
+  az_6x6_s010:   {kind: ffnn, n: 6,  m: 6,  sigma: 0.1}
+  az_10x10_s010: {kind: ffnn, n: 10, m: 10, sigma: 0.1}
+validation:
+  random_schedules: 3

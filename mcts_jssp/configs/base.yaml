@@ -1,0 +1,169 @@
+# Settings shared by every command (Chapter 3 of the thesis).
+# Experiment files inherit from this file and state only what differs.
+
+paths:
+  data: data/orlib            # OR-Library instances and best-known makespans (JSPLib)
+  artifacts: artifacts        # trained networks, temperatures, tuned levels, time budgets
+  results: results            # one directory per experiment
+
+seed: 20261116                # master seed; every run derives its own seed from it
+runs: 5                       # runs per instance and configuration (Section 3.6.3)
+inference_backend: numpy      # numpy (fast single-state evaluation) | torch
+
+# ---------------------------------------------------------------- search (Table 3.1)
+search:
+  c: 1.0                      # exploration constant of UCT and PUCT, fixed [126]
+  skip_forced: true           # a decision with one legal action needs no search
+
+# ---------------------------------------------------------------- entropy levels (Sections 3.2.2, 3.6.2)
+entropy:
+  levels: [0.0, 0.25, 0.5, 0.75]
+  default_size: [15, 15]      # validation set for the temperature of MWKR outside RQ3
+  calibration:                # bisection of the temperature for the levels 0.25, 0.5, 0.75
+    instances: 100
+    rollouts_per_instance: 1
+    start_depths: 10          # rollouts start at 10 evenly spaced depths of a schedule, as in the search
+    tolerance: 0.01
+  selection:                  # entropy level used outside RQ3 (Table 3.5)
+    instances: 20
+    iterations: 100
+    configurations:
+      - {name: MWKR}
+      - {name: LR, model: lr_15x15}
+      - {name: AZ, model: az_15x15}
+
+# ---------------------------------------------------------------- time budgets T50 and T200
+time_budget:
+  repeats: 3                  # episodes of U per measurement (the median is stored)
+  profile: mean               # mean: one time for every decision | per_decision: time of U at that depth
+
+# ---------------------------------------------------------------- recording (Section 3.6.4)
+recording:
+  level: decisions            # none | decisions | rollouts | steps   (runs with an iteration budget)
+  timed_level: decisions      # level for runs with a time budget
+  step_rate: 0.001            # one rollout step in a thousand is stored
+  store_sequence: true        # job sequence of every reported schedule (rebuilds the schedule)
+  rollout_sequences: 0.0      # share of the rollouts whose job sequence is stored (records/<run>.sequences.npz);
+                              #   every state such a rollout visited is rebuilt from it; 0 = off, e.g. 0.01
+
+# ---------------------------------------------------------------- stochastic setting (RQ5)
+stochastic:
+  scenarios: 30               # fixed evaluation scenarios per instance and level
+
+# ---------------------------------------------------------------- training (Section 3.6.1, Table 3.4)
+training:
+  episodes_per_generation: 40
+  iterations: 100             # search iterations per decision in self-play
+  noise_weight: 0.25          # Dirichlet noise at the root
+  noise_alpha_scale: 10.0     # alpha = 10 / |A(s)|
+  q_init: zero                # value of an unvisited child in PUCT: zero (as AlphaZero) | parent (mean of its parent)
+  percentile: 75              # ranked reward; starting value, tuned (Table 3.5)
+  window: 250                 # recent results that define the percentile
+  rank_against_generation0: false  # true keeps the results of U (generation 0) in the ranking window
+  method: self_label          # self_label: self-labelling of the rollout policies (training/self_label.py);
+                              # alphazero: PUCT self-play with the settings below (run 1, not used any more)
+  self_label:                 # samples per instance, new instances per iteration, epochs over the labels of
+    samples: 32               #   the last `window` iterations
+    instances: 64
+    epochs: 4
+    window: 3
+    learning_rate: 1.0e-3
+    temperature: 1.0          # sampling temperature of the training samples (Corsini et al.); auto: once the
+    target_entropy: 0.5       #   network beats uniform, half of the samples at the temperature of normalised
+    explore: 0.5              #   entropy target_entropy (tested, not better; see training/self_label.py)
+    iterations: 50
+    patience: 10              # stop after 10 iterations without a better network (null: all iterations),
+    min_iterations: 20        #   but not before 20
+    select: mean              # best network by the mean of its greedy and sampled ratios | sampled | greedy
+    init: curriculum          # LR and fast LR start from the next smaller size, networks for disturbances
+                              #   from their deterministic twin; null = random weights; or a checkpoint path
+    augment: true             # AZ and fast AZ see the jobs renumbered at random in every epoch
+    teacher: {ffnn: lr, fast_az: flr}   # AZ first copies the greedy schedules of lr_<size>, fast AZ those of
+    teacher_instances: 500    #   flr_<size> (500 instances, 20 epochs), then both self-label; they cannot
+    teacher_epochs: 20        #   start from a smaller size; null = from random weights
+    validation_samples: 4
+    fit_threads: auto         # PyTorch threads while fitting: auto = one per physical core
+  value_target: outcome       # outcome: the value network learns the ranked reward of the episode;
+                              # search: it learns the value of the root of each search (Kemmerling [126])
+  leaf_rollouts: false        # true: every new leaf of a training search is completed by a uniform rollout
+  rollout_mix: 0.5            # weight of that rollout's outcome next to the value network (AlphaGo: 0.5)
+  normalize_q: false          # true: PUCT rescales Q to [0, 1] with the extremes of each search (MuZero)
+  warm_start: null            # copy a dispatching rule before self-play, e.g.
+                              # {rule: FIFO, instances: 300, epochs: 8, learning_rate: 1.0e-3, non_delay: false};
+                              # a nested entry per kind overrides values, e.g. ffnn: {instances: 1000, epochs: 60}
+  buffer_size: 36000          # replay buffer, oldest records removed first [126]
+  batch_size: 256
+  learning_rate: 5.0e-5       # starting value, tuned (Table 3.5)
+  weight_decay: 5.0e-4
+  policy_weight: 1.0
+  value_weight: 1.0
+  patience: 5                 # generations without improvement on the validation instances (null = off)
+  min_generations: 0          # early stopping is not applied before this generation
+  max_generations: 100
+  max_hours: null             # wall-clock limit per network in hours (null = none), e.g. 2
+  verbose: 1                  # 0 = summary per network, 1 = a line per generation, 2 = + diagnostics
+  budget_model_steps: null    # training budget in steps of the dynamics model: set it after the pilot study
+  validation_instances: 100
+  workers: 1                  # processes that play the self-play episodes
+  fit_threads: auto           # PyTorch threads while a self-play network is fitted (the episode workers wait):
+                              #   auto = one per physical core; self-labelling: self_label.fit_threads
+  use_tuned: true             # use the learning rate and percentile found by `tune`, if present
+  networks:
+    gin:  {hidden: 64, gin_layers: 2, mlp_hidden_layers: 2, head_hidden: 32, head_hidden_layers: 2}
+    ffnn: {hidden: 256, hidden_layers: 2}
+    fast_lr: {hidden: 16}       # fast LR: policy 6 -> 16 (ReLU) -> 1 per candidate (shared, any size);
+                                #   value 6 -> 16 (ReLU) per candidate, mean, -> 1 (tanh); 0 = linear
+    fast_az: {hidden: 32}       # fast AZ: policy 6n -> 32 (ReLU) -> n; value 6n -> 32 (ReLU) -> 1 (tanh); 0 = linear
+  fast:                         # training of the fast networks: the same PUCT self-play as LR and AZ, with
+    learning_rate: 5.0e-4       #   policy and value outputs; only the policy is used in the experiments (rollouts)
+    copy:                       # only for models that list a teacher: copy a rule or a trained network
+      instances: 300
+      epochs: 8
+      learning_rate: 1.0e-3
+
+# ---------------------------------------------------------------- tuning (Section 3.6.2, Table 3.5)
+tuning:
+  trials: 20                  # random-search trials per configuration
+  size: [15, 15]              # instance size on which LR and AZ are tuned
+  max_generations: 30         # tuning budget of one trial (the same for LR and AZ)
+  budget_model_steps: null
+
+# ---------------------------------------------------------------- networks to train
+# name: {kind: gin (LR) | ffnn (AZ), n, m, sigma (self-play with disturbances, RQ5)}
+models:
+  lr_6x6:        {kind: gin,  n: 6,  m: 6}
+  lr_10x10:      {kind: gin,  n: 10, m: 10}
+  lr_15x15:      {kind: gin,  n: 15, m: 15}
+  az_6x6:        {kind: ffnn, n: 6,  m: 6}
+  az_10x10:      {kind: ffnn, n: 10, m: 10}
+  az_15x15:      {kind: ffnn, n: 15, m: 15}
+  lr_15x15_s010: {kind: gin,  n: 15, m: 15, sigma: 0.1}
+  lr_15x15_s020: {kind: gin,  n: 15, m: 15, sigma: 0.2}
+  az_6x6_s010:   {kind: ffnn, n: 6,  m: 6,  sigma: 0.1}
+  az_10x10_s010: {kind: ffnn, n: 10, m: 10, sigma: 0.1}
+  az_15x15_s010: {kind: ffnn, n: 15, m: 15, sigma: 0.1}
+  az_6x6_s020:   {kind: ffnn, n: 6,  m: 6,  sigma: 0.2}
+  az_10x10_s020: {kind: ffnn, n: 10, m: 10, sigma: 0.2}
+  az_15x15_s020: {kind: ffnn, n: 15, m: 15, sigma: 0.2}
+  # fast networks (optional): trained like LR and AZ by self-labelling (train); fast LR grows through the sizes
+  # like LR, fast AZ first copies fast LR of its size (training.self_label.teacher); in the experiments their
+  # policy samples the rollouts.  To copy a rule or network only (train-fast), add e.g.
+  # teacher: {model: lr_15x15} or teacher: {rule: FIFO}
+  flr_6x6:   {kind: fast_lr, n: 6,  m: 6}
+  flr_10x10: {kind: fast_lr, n: 10, m: 10}
+  flr_15x15: {kind: fast_lr, n: 15, m: 15}
+  faz_6x6:   {kind: fast_az, n: 6,  m: 6}
+  faz_10x10: {kind: fast_az, n: 10, m: 10}
+  faz_15x15: {kind: fast_az, n: 15, m: 15}
+
+# ---------------------------------------------------------------- validation of the environment (Section 3.7)
+validation:
+  random_schedules: 20        # random schedules per instance for the first check
+  rule_tolerance: 0.5         # second check: allowed difference to the published gaps (percentage points)
+  learning_check:             # third check: the GIN trained on 6 x 6 must beat uniform random dispatching
+    model: lr_6x6
+
+# ---------------------------------------------------------------- statistics (Section 3.6.4)
+analysis:
+  alpha: 0.05
+  zero_method: zsplit         # zero differences in the Wilcoxon test, as in Demsar [173]

@@ -1,0 +1,14 @@
+# RQ4 (Table 3.6): LR trained on 6 x 6, 10 x 10 and 15 x 15 against U and MWKR on instances of
+# other sizes, as the size ratio grows.
+inherits: ../base.yaml
+experiment: rq4
+description: Generalisation of the learned rollout distribution across instance sizes
+instances: all
+budgets:
+  - {time: 200}
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: tuned}
+  - {name: LR, model: lr_6x6, entropy: tuned}
+  - {name: LR, model: lr_10x10, entropy: tuned}
+  - {name: LR, model: lr_15x15, entropy: tuned}

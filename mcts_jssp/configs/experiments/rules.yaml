@@ -1,0 +1,31 @@
+# Extension of RQ1 and RQ2 (added after the main experiments): the other dispatching rules compared by
+# Ho et al. [161] - MOR, SPT and FIFO - as fixed rollout distributions, in the design of RQ2 (all 82 instances,
+# I25 to I200, T50 and T200, 5 runs).  Each is a softmax over its own criterion, built like MWKR, and its
+# entropy level is chosen on the validation instances with the same procedure as MWKR (Table 3.5); U gets its
+# validation score at level 1.  U, MWKR and LR are not run again: the analysis takes them from RQ2, so the
+# networks are compared with every fixed distribution and with the best of them on the validation instances.
+#
+#   python run_pipeline.py --steps rules        # levels of the rules, then these runs
+#   python run_pipeline.py --steps analyse      # analyses this experiment together with RQ2
+inherits: ../base.yaml
+experiment: rules
+description: MOR, SPT and FIFO as fixed rollout distributions (extension of RQ1 and RQ2)
+instances: all
+budgets:
+  - {iterations: 25}
+  - {iterations: 50}
+  - {iterations: 100}
+  - {iterations: 200}
+  - {time: 50}
+  - {time: 200}
+configurations:
+  - {name: MOR, entropy: tuned}
+  - {name: SPT, entropy: tuned}
+  - {name: FIFO, entropy: tuned}
+entropy:
+  selection:                  # the same procedure as for MWKR, LR and AZ (base.yaml), for these distributions
+    configurations:
+      - {name: U}             # no level: its score at level 1 ranks it with the rules
+      - {name: MOR}
+      - {name: SPT}
+      - {name: FIFO}

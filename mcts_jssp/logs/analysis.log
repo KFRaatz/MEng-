@@ -1,0 +1,303 @@
+settings: study.yaml   workers: 24   steps: rules, fixed_states, analyse, compare
+
+=== rules =======================================================
+
+>>> python -m mctsjssp select-entropy --config configs/experiments/rules.yaml --workers 24 --missing --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+entropy selection: 320 episodes of MCTS with 100 iterations on 24 worker(s)
+calibrating 9 temperatures in parallel
+temperature MOR|-|15x15|H0.25: tau = 1e-12, realised entropy 0.716 (NOT within tolerance)
+temperature MOR|-|15x15|H0.5: tau = 1e-12, realised entropy 0.716 (NOT within tolerance)
+temperature MOR|-|15x15|H0.75: tau = 0.032781, realised entropy 0.751
+temperature SPT|-|15x15|H0.25: tau = 0.047829, realised entropy 0.249
+temperature SPT|-|15x15|H0.5: tau = 0.12298, realised entropy 0.504
+temperature SPT|-|15x15|H0.75: tau = 0.23082, realised entropy 0.753
+temperature FIFO|-|15x15|H0.25: tau = 0.0041047, realised entropy 0.251
+temperature FIFO|-|15x15|H0.5: tau = 0.012749, realised entropy 0.499
+temperature FIFO|-|15x15|H0.75: tau = 0.03718, realised entropy 0.742
+entropy selection: 1.6 min
+
+Entropy level by MCTS with 100 iterations on 20 validation instances (mean Cmax/LB0)
+configuration model  best_level    H1    H0  H0.25  H0.5  H0.75
+            U  None           1 1.464   NaN    NaN   NaN    NaN
+          MOR  None        0.75   NaN 1.435  1.438 1.438  1.431
+          SPT  None        0.25   NaN 1.533  1.512 1.541  1.527
+         FIFO  None        0.25   NaN 1.392  1.379 1.399  1.437
+
+Fixed rollout distributions on the validation instances (at the chosen level)
+ rank distribution  level  realised_entropy  validation_ratio  instances  iterations  size  best
+    1         FIFO   0.25            0.2506             1.379         20         100 15x15  True
+    2         MWKR    0.5            0.4991             1.408         20         100 15x15 False
+    3          MOR   0.75            0.7505             1.431         20         100 15x15 False
+    4            U      1                 1             1.464         20         100 15x15 False
+    5          SPT   0.25            0.2492             1.512         20         100 15x15 False
+    (1.7 min)
+
+>>> python -m mctsjssp run --config configs/experiments/rules.yaml --workers 24 --hours 19.97 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rules: 7380 runs planned, 0 already done, 7380 to run -> /home/sagemaker-user/mcts_jssp/results/rules-482198e1
+  369/7380 runs, 0.2 min elapsed, about 4.2 min left
+  738/7380 runs, 0.6 min elapsed, about 5.2 min left
+  1107/7380 runs, 2.6 min elapsed, about 14.6 min left
+  1476/7380 runs, 4.2 min elapsed, about 16.9 min left
+  1845/7380 runs, 4.9 min elapsed, about 14.7 min left
+  2214/7380 runs, 13.4 min elapsed, about 31.2 min left
+  2583/7380 runs, 20.0 min elapsed, about 37.2 min left
+  2952/7380 runs, 20.3 min elapsed, about 30.4 min left
+  3321/7380 runs, 20.8 min elapsed, about 25.5 min left
+  3690/7380 runs, 23.1 min elapsed, about 23.1 min left
+  4059/7380 runs, 24.1 min elapsed, about 19.7 min left
+  4428/7380 runs, 25.4 min elapsed, about 16.9 min left
+  4797/7380 runs, 36.2 min elapsed, about 19.5 min left
+  5166/7380 runs, 38.2 min elapsed, about 16.4 min left
+  5535/7380 runs, 38.5 min elapsed, about 12.8 min left
+  5904/7380 runs, 39.5 min elapsed, about 9.9 min left
+  6273/7380 runs, 41.8 min elapsed, about 7.4 min left
+  6642/7380 runs, 42.7 min elapsed, about 4.7 min left
+  7011/7380 runs, 46.4 min elapsed, about 2.4 min left
+  7380/7380 runs, 58.3 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rules-482198e1
+    (58.4 min)
+
+=== fixed_states ================================================
+
+>>> python -m mctsjssp fixed-states --config configs/experiments/rq3.yaml --workers 24 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.05
+  fixed states: ft06 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb03 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la20 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb09 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb04 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb07 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la16 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: ft10 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb05 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: abz5 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb01 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb02 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la17 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la18 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb08 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la19 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb06 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: abz6 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: orb10 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la36 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la38 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la40 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la37 done (50 states, 13 distributions, searches on 10 states)
+  fixed states: la39 done (50 states, 13 distributions, searches on 10 states)
+15600 rows -> /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef/fixed_states.csv
+summary -> /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef/analysis/fixed_states_summary.csv
+figure -> /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef/analysis/fixed_states_vs_u.png
+figure -> /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef/analysis/fixed_states_vs_u.pdf
+    (1.8 min)
+
+=== analyse =====================================================
+
+>>> python -m mctsjssp analyse --config configs/experiments/rq1.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rq1: 3280 runs, 82 instances, 2 configurations, 4 budgets
+  tables: summary, convergence, bks_reached, tests, time_to_target, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rq1-0dbc859e/analysis
+  figures: anytime_I100, anytime_I200, anytime_I25, anytime_I50, convergence_iterations, convergence_time, gap_by_size_class_I200
+    (0.2 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/rq2.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.01
+rq2: 7380 runs, 82 instances, 3 configurations, 6 budgets
+  tables: summary, convergence, bks_reached, friedman, tests, time_to_target, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rq2-c5211bf5/analysis
+  figures: anytime_I100, anytime_I200, anytime_I25, anytime_I50, anytime_T200, anytime_T50, convergence_iterations, convergence_time, gap_by_size_class_T200
+    (0.3 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/rq3.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.05
+rq3: 3120 runs, 24 instances, 13 configurations, 2 budgets
+  tables: summary, convergence, bks_reached, tests_same_entropy, friedman_levels, behaviour, relations, steps_profile, decisions_profile, fixed_states, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef/analysis
+  figures: anytime_I100, anytime_T200, entropy_realised_vs_target, gap_by_entropy_level
+    (0.4 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/rq4.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rq4: 2050 runs, 82 instances, 5 configurations, 1 budgets
+  tables: summary, convergence, bks_reached, by_size_ratio, tests_other_sizes, trend, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rq4-972d6c55/analysis
+  figures: anytime_T200, gap_by_size_ratio
+    (0.1 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/rq5.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rq5: 1080 runs, 18 instances, 8 configurations, 1 budgets
+  tables: summary, friedman, tests, tests_training, tests_robustness, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rq5-d8cd2ac6/analysis
+  figures: anytime_T200, robustness
+    (0.1 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/fast.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.01
+fast: 2640 runs, 24 instances, 11 configurations, 2 budgets
+  tables: summary, convergence, bks_reached, tests, friedman, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/fast-b5c6bddb/analysis
+  figures: anytime_I100, anytime_T200
+    (0.1 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/sensitivity_c.yaml --set seed=3 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+sensitivity_c: 720 runs, 18 instances, 8 configurations, 2 budgets
+  tables: summary, convergence, bks_reached, tests, friedman, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/sensitivity_c-5fead424/analysis
+  figures: anytime_I100, anytime_T200
+    (0.1 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/rq6.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rq6: 600 runs, 24 instances, 5 configurations, 1 budgets
+  tables: summary, convergence, bks_reached, tests, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rq6-b71cd023/analysis
+  figures: anytime_I100, gap_by_size_class_I100
+    (0.1 min)
+
+>>> python -m mctsjssp analyse --config configs/experiments/rules.yaml --with /home/sagemaker-user/mcts_jssp/results/rq2-c5211bf5 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+  with 7380 runs of rq2-c5211bf5
+rules: 14760 runs, 82 instances, 6 configurations, 6 budgets
+  tables: summary, convergence, bks_reached, friedman, tests, validation, tests_best_fixed, tests_rules, time_to_target, anytime, anytime_summary -> /home/sagemaker-user/mcts_jssp/results/rules-482198e1/analysis
+  figures: anytime_I100, anytime_I200, anytime_I25, anytime_I50, anytime_T200, anytime_T50, convergence_iterations, convergence_time, gap_by_size_class_T200
+    (0.3 min)
+
+=== compare =====================================================
+
+>>> python -m mctsjssp compare --run-dir /home/sagemaker-user/mcts_jssp/results/rq1-0dbc859e --run-dir /home/sagemaker-user/mcts_jssp/results/rq2-c5211bf5 --run-dir /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef --run-dir /home/sagemaker-user/mcts_jssp/results/rq4-972d6c55 --run-dir /home/sagemaker-user/mcts_jssp/results/fast-b5c6bddb --out results/compare
+per_instance: 3694 rows -> results/compare/per_instance.csv
+vs_reference: 73 rows -> results/compare/vs_reference.csv
+mean_rank: 79 rows -> results/compare/mean_rank.csv
+gap_by_instance_I100: 82 rows -> results/compare/gap_by_instance_I100.csv
+gap_by_instance_I200: 82 rows -> results/compare/gap_by_instance_I200.csv
+gap_by_instance_I25: 82 rows -> results/compare/gap_by_instance_I25.csv
+gap_by_instance_I50: 82 rows -> results/compare/gap_by_instance_I50.csv
+gap_by_instance_T200: 82 rows -> results/compare/gap_by_instance_T200.csv
+gap_by_instance_T50: 82 rows -> results/compare/gap_by_instance_T50.csv
+budget                    configuration  mean_rank  instances  mean_gap
+  I100          fast-b5c6bddb:FastAZ@H0      5.604         24     9.040
+  I100          fast-b5c6bddb:FastLR@H0      5.750         24     8.988
+  I100        fast-b5c6bddb:FastAZ@H0.5      7.042         24     9.329
+  I100        fast-b5c6bddb:FastLR@H0.5      7.271         24     9.359
+  I100     rq2-c5211bf5:LR[lr_15x15]@H0      8.333         24    10.191
+  I100 rq3-627f09ef:LR[lr_{size}]@H0.25      9.667         24    10.531
+  I100    rq3-627f09ef:LR[lr_{size}]@H0     10.521         24    10.787
+  I100              fast-b5c6bddb:LR@H0     11.083         24    10.818
+  I100            fast-b5c6bddb:LR@H0.5     13.271         24    11.172
+  I100  rq3-627f09ef:LR[lr_{size}]@H0.5     13.583         24    11.499
+  I100           rq2-c5211bf5:MWKR@H0.5     14.438         24    11.632
+  I100          fast-b5c6bddb:MWKR@H0.5     14.562         24    11.711
+  I100           rq3-627f09ef:MWKR@H0.5     14.562         24    11.711
+  I100           rq1-0dbc859e:MWKR@H0.5     14.604         24    11.632
+  I100          rq3-627f09ef:MWKR@H0.25     14.667         24    11.857
+  I100          rq3-627f09ef:MWKR@H0.75     14.917         24    11.606
+  I100            fast-b5c6bddb:AZ@H0.5     18.333         24    13.168
+  I100            fast-b5c6bddb:MWKR@H0     18.500         24    12.895
+  I100             rq3-627f09ef:MWKR@H0     18.500         24    12.895
+  I100              fast-b5c6bddb:AZ@H0     18.750         24    13.679
+  I100 rq3-627f09ef:AZ[az_{size}]@H0.25     19.062         24    13.358
+  I100    rq3-627f09ef:AZ[az_{size}]@H0     19.167         24    13.812
+  I100 rq3-627f09ef:LR[lr_{size}]@H0.75     19.188         24    13.053
+  I100  rq3-627f09ef:AZ[az_{size}]@H0.5     19.771         24    13.610
+  I100                  fast-b5c6bddb:U     20.604         24    13.698
+  I100                   rq1-0dbc859e:U     20.604         24    13.698
+  I100                   rq2-c5211bf5:U     20.604         24    13.698
+  I100                   rq3-627f09ef:U     20.688         24    13.698
+  I100 rq3-627f09ef:AZ[az_{size}]@H0.75     21.354         24    13.965
+  I200     rq2-c5211bf5:LR[lr_15x15]@H0      2.110         82    11.564
+  I200           rq1-0dbc859e:MWKR@H0.5      2.652         82    12.388
+  I200           rq2-c5211bf5:MWKR@H0.5      2.665         82    12.388
+  I200                   rq2-c5211bf5:U      3.780         82    14.160
+  I200                   rq1-0dbc859e:U      3.793         82    14.160
+   I25     rq2-c5211bf5:LR[lr_15x15]@H0      1.585         82    13.135
+   I25           rq1-0dbc859e:MWKR@H0.5      2.341         82    14.976
+   I25           rq2-c5211bf5:MWKR@H0.5      2.341         82    14.976
+   I25                   rq2-c5211bf5:U      4.354         82    19.322
+   I25                   rq1-0dbc859e:U      4.378         82    19.322
+   I50     rq2-c5211bf5:LR[lr_15x15]@H0      1.732         82    12.735
+   I50           rq1-0dbc859e:MWKR@H0.5      2.311         82    14.200
+   I50           rq2-c5211bf5:MWKR@H0.5      2.323         82    14.200
+   I50                   rq1-0dbc859e:U      4.317         82    17.929
+   I50                   rq2-c5211bf5:U      4.317         82    17.929
+  T200          fast-b5c6bddb:FastLR@H0      5.875         24    12.290
+  T200           rq2-c5211bf5:MWKR@H0.5      6.812         24    12.904
+  T200           rq4-972d6c55:MWKR@H0.5      6.812         24    12.864
+  T200          fast-b5c6bddb:FastAZ@H0      7.104         24    12.667
+  T200          fast-b5c6bddb:MWKR@H0.5      7.167         24    12.923
+  T200          rq3-627f09ef:MWKR@H0.25      7.208         24    12.917
+  T200           rq3-627f09ef:MWKR@H0.5      7.312         24    13.036
+  T200            fast-b5c6bddb:MWKR@H0      7.562         24    12.831
+  T200             rq3-627f09ef:MWKR@H0      8.688         24    13.175
+  T200                   rq2-c5211bf5:U      8.708         24    13.310
+  T200                   rq3-627f09ef:U      8.729         24    13.301
+  T200          rq3-627f09ef:MWKR@H0.75      9.375         24    13.904
+  T200                  fast-b5c6bddb:U      9.417         24    13.802
+  T200                   rq4-972d6c55:U      9.542         24    13.937
+  T200        fast-b5c6bddb:FastAZ@H0.5     14.208         24    16.838
+  T200        fast-b5c6bddb:FastLR@H0.5     14.438         24    16.429
+  T200              fast-b5c6bddb:AZ@H0     17.000         24    20.500
+  T200    rq3-627f09ef:AZ[az_{size}]@H0     17.146         24    20.641
+  T200  rq3-627f09ef:AZ[az_{size}]@H0.5     22.146         24    24.025
+  T200 rq3-627f09ef:AZ[az_{size}]@H0.25     22.271         24    24.273
+  T200              fast-b5c6bddb:LR@H0     22.917         24    25.095
+  T200            fast-b5c6bddb:AZ@H0.5     23.333         24    25.011
+  T200       rq4-972d6c55:LR[lr_6x6]@H0     23.875         24    25.486
+  T200     rq4-972d6c55:LR[lr_10x10]@H0     24.229         24    25.424
+  T200    rq3-627f09ef:LR[lr_{size}]@H0     24.250         24    25.394
+  T200 rq3-627f09ef:AZ[az_{size}]@H0.75     24.667         24    25.720
+  T200     rq4-972d6c55:LR[lr_15x15]@H0     25.688         24    26.528
+  T200     rq2-c5211bf5:LR[lr_15x15]@H0     26.000         24    26.731
+  T200 rq3-627f09ef:LR[lr_{size}]@H0.25     27.542         24    27.857
+  T200  rq3-627f09ef:LR[lr_{size}]@H0.5     28.646         24    28.931
+  T200            fast-b5c6bddb:LR@H0.5     29.458         24    29.851
+  T200 rq3-627f09ef:LR[lr_{size}]@H0.75     29.875         24    30.448
+   T50           rq2-c5211bf5:MWKR@H0.5      1.415         82    17.258
+   T50                   rq2-c5211bf5:U      1.585         82    18.226
+   T50     rq2-c5211bf5:LR[lr_15x15]@H0      3.000         82    33.332
+figure -> results/compare/compare_instances_I100.png
+figure -> results/compare/compare_instances_I100.pdf
+figure -> results/compare/compare_instances_I200.png
+figure -> results/compare/compare_instances_I200.pdf
+figure -> results/compare/compare_instances_I25.png
+figure -> results/compare/compare_instances_I25.pdf
+figure -> results/compare/compare_instances_I50.png
+figure -> results/compare/compare_instances_I50.pdf
+figure -> results/compare/compare_instances_T200.png
+figure -> results/compare/compare_instances_T200.pdf
+figure -> results/compare/compare_instances_T50.png
+figure -> results/compare/compare_instances_T50.pdf
+    (0.5 min)
+
+>>> python -m mctsjssp compare-states --run-dir /home/sagemaker-user/mcts_jssp/results/rq1-0dbc859e --run-dir /home/sagemaker-user/mcts_jssp/results/rq2-c5211bf5 --run-dir /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef --run-dir /home/sagemaker-user/mcts_jssp/results/rq4-972d6c55 --run-dir /home/sagemaker-user/mcts_jssp/results/fast-b5c6bddb --out results/visited_states
+  rq1-0dbc859e: 0 runs with stored rollout sequences
+  rq2-c5211bf5: 7371 runs with stored rollout sequences
+  rq3-627f09ef: 3120 runs with stored rollout sequences
+  rq4-972d6c55: 0 runs with stored rollout sequences
+  fast-b5c6bddb: 2640 runs with stored rollout sequences
+visited_states: 26004 rows -> results/visited_states/visited_states.csv
+visited_summary: 660 rows -> results/visited_states/visited_summary.csv
+visited_overlap: 178192 rows -> results/visited_states/visited_overlap.csv
+figure -> results/visited_states/visited_states_I25.png
+figure -> results/visited_states/visited_states_I25.pdf
+figure -> results/visited_states/visited_states_I50.png
+figure -> results/visited_states/visited_states_I50.pdf
+figure -> results/visited_states/visited_states_I100.png
+figure -> results/visited_states/visited_states_I100.pdf
+figure -> results/visited_states/visited_states_I200.png
+figure -> results/visited_states/visited_states_I200.pdf
+figure -> results/visited_states/visited_states_T50.png
+figure -> results/visited_states/visited_states_T50.pdf
+figure -> results/visited_states/visited_states_T200.png
+figure -> results/visited_states/visited_states_T200.pdf
+    (21.2 min)
+
+Done in 1.42 h.  Results: results/, analyses: results/<experiment>/analysis/, comparisons: results/compare/ and results/visited_states/

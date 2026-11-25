@@ -1,0 +1,31 @@
+# Published mean optimality gaps (%) of dispatching rules on the OR-Library families, for the second
+# validation check of Section 3.7.
+# Source: Ho et al., Residual Scheduling: A New Reinforcement Learning Approach to Solving Job Shop
+# Scheduling Problem, Table 10 (Appendix F.1) of arXiv:2309.15517v2 (IEEE Access 12, 2024); the paper
+# prints the gaps as fractions (0.166 = 16.6 %).  Transcribed on 17 November 2026: check the values
+# against the paper before citing them.
+family,rule,gap,source
+ft,SPT,28.0,Ho et al. Table 10
+ft,MWKR,19.6,Ho et al. Table 10
+ft,MOR,23.2,Ho et al. Table 10
+ft,FIFO,28.8,Ho et al. Table 10
+la,SPT,19.9,Ho et al. Table 10
+la,MWKR,12.6,Ho et al. Table 10
+la,MOR,13.8,Ho et al. Table 10
+la,FIFO,18.8,Ho et al. Table 10
+abz,SPT,25.1,Ho et al. Table 10
+abz,MWKR,16.6,Ho et al. Table 10
+abz,MOR,18.0,Ho et al. Table 10
+abz,FIFO,24.7,Ho et al. Table 10
+orb,SPT,26.2,Ho et al. Table 10
+orb,MWKR,25.1,Ho et al. Table 10
+orb,MOR,29.0,Ho et al. Table 10
+orb,FIFO,29.7,Ho et al. Table 10
+swv,SPT,23.0,Ho et al. Table 10
+swv,MWKR,28.4,Ho et al. Table 10
+swv,MOR,35.8,Ho et al. Table 10
+swv,FIFO,37.3,Ho et al. Table 10
+yn,SPT,30.6,Ho et al. Table 10
+yn,MWKR,19.7,Ho et al. Table 10
+yn,MOR,22.8,Ho et al. Table 10
+yn,FIFO,25.8,Ho et al. Table 10

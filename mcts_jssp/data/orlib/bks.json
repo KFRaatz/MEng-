@@ -1,0 +1,419 @@
+{
+ "_source": "JSPLib, ScheduleOpt/benchmarks (https://github.com/ScheduleOpt/benchmarks), file jobshop/solutions/bks.json",
+ "_commit": "8a6e36ef31263d36975e56fb481e0ba04e188d6f",
+ "_commit_date": "2026-10-22",
+ "_licence": "CC BY-SA 4.0",
+ "_note": "upper_bound is the best-known makespan (BKS); status 'closed' means lower_bound == upper_bound (optimal).",
+ "instances": {
+  "ft06": {
+   "lower_bound": 55,
+   "upper_bound": 55,
+   "status": "closed"
+  },
+  "ft10": {
+   "lower_bound": 930,
+   "upper_bound": 930,
+   "status": "closed"
+  },
+  "ft20": {
+   "lower_bound": 1165,
+   "upper_bound": 1165,
+   "status": "closed"
+  },
+  "la01": {
+   "lower_bound": 666,
+   "upper_bound": 666,
+   "status": "closed"
+  },
+  "la02": {
+   "lower_bound": 655,
+   "upper_bound": 655,
+   "status": "closed"
+  },
+  "la03": {
+   "lower_bound": 597,
+   "upper_bound": 597,
+   "status": "closed"
+  },
+  "la04": {
+   "lower_bound": 590,
+   "upper_bound": 590,
+   "status": "closed"
+  },
+  "la05": {
+   "lower_bound": 593,
+   "upper_bound": 593,
+   "status": "closed"
+  },
+  "la06": {
+   "lower_bound": 926,
+   "upper_bound": 926,
+   "status": "closed"
+  },
+  "la07": {
+   "lower_bound": 890,
+   "upper_bound": 890,
+   "status": "closed"
+  },
+  "la08": {
+   "lower_bound": 863,
+   "upper_bound": 863,
+   "status": "closed"
+  },
+  "la09": {
+   "lower_bound": 951,
+   "upper_bound": 951,
+   "status": "closed"
+  },
+  "la10": {
+   "lower_bound": 958,
+   "upper_bound": 958,
+   "status": "closed"
+  },
+  "la11": {
+   "lower_bound": 1222,
+   "upper_bound": 1222,
+   "status": "closed"
+  },
+  "la12": {
+   "lower_bound": 1039,
+   "upper_bound": 1039,
+   "status": "closed"
+  },
+  "la13": {
+   "lower_bound": 1150,
+   "upper_bound": 1150,
+   "status": "closed"
+  },
+  "la14": {
+   "lower_bound": 1292,
+   "upper_bound": 1292,
+   "status": "closed"
+  },
+  "la15": {
+   "lower_bound": 1207,
+   "upper_bound": 1207,
+   "status": "closed"
+  },
+  "la16": {
+   "lower_bound": 945,
+   "upper_bound": 945,
+   "status": "closed"
+  },
+  "la17": {
+   "lower_bound": 784,
+   "upper_bound": 784,
+   "status": "closed"
+  },
+  "la18": {
+   "lower_bound": 848,
+   "upper_bound": 848,
+   "status": "closed"
+  },
+  "la19": {
+   "lower_bound": 842,
+   "upper_bound": 842,
+   "status": "closed"
+  },
+  "la20": {
+   "lower_bound": 902,
+   "upper_bound": 902,
+   "status": "closed"
+  },
+  "la21": {
+   "lower_bound": 1046,
+   "upper_bound": 1046,
+   "status": "closed"
+  },
+  "la22": {
+   "lower_bound": 927,
+   "upper_bound": 927,
+   "status": "closed"
+  },
+  "la23": {
+   "lower_bound": 1032,
+   "upper_bound": 1032,
+   "status": "closed"
+  },
+  "la24": {
+   "lower_bound": 935,
+   "upper_bound": 935,
+   "status": "closed"
+  },
+  "la25": {
+   "lower_bound": 977,
+   "upper_bound": 977,
+   "status": "closed"
+  },
+  "la26": {
+   "lower_bound": 1218,
+   "upper_bound": 1218,
+   "status": "closed"
+  },
+  "la27": {
+   "lower_bound": 1235,
+   "upper_bound": 1235,
+   "status": "closed"
+  },
+  "la28": {
+   "lower_bound": 1216,
+   "upper_bound": 1216,
+   "status": "closed"
+  },
+  "la29": {
+   "lower_bound": 1152,
+   "upper_bound": 1152,
+   "status": "closed"
+  },
+  "la30": {
+   "lower_bound": 1355,
+   "upper_bound": 1355,
+   "status": "closed"
+  },
+  "la31": {
+   "lower_bound": 1784,
+   "upper_bound": 1784,
+   "status": "closed"
+  },
+  "la32": {
+   "lower_bound": 1850,
+   "upper_bound": 1850,
+   "status": "closed"
+  },
+  "la33": {
+   "lower_bound": 1719,
+   "upper_bound": 1719,
+   "status": "closed"
+  },
+  "la34": {
+   "lower_bound": 1721,
+   "upper_bound": 1721,
+   "status": "closed"
+  },
+  "la35": {
+   "lower_bound": 1888,
+   "upper_bound": 1888,
+   "status": "closed"
+  },
+  "la36": {
+   "lower_bound": 1268,
+   "upper_bound": 1268,
+   "status": "closed"
+  },
+  "la37": {
+   "lower_bound": 1397,
+   "upper_bound": 1397,
+   "status": "closed"
+  },
+  "la38": {
+   "lower_bound": 1196,
+   "upper_bound": 1196,
+   "status": "closed"
+  },
+  "la39": {
+   "lower_bound": 1233,
+   "upper_bound": 1233,
+   "status": "closed"
+  },
+  "la40": {
+   "lower_bound": 1222,
+   "upper_bound": 1222,
+   "status": "closed"
+  },
+  "abz5": {
+   "lower_bound": 1234,
+   "upper_bound": 1234,
+   "status": "closed"
+  },
+  "abz6": {
+   "lower_bound": 943,
+   "upper_bound": 943,
+   "status": "closed"
+  },
+  "abz7": {
+   "lower_bound": 656,
+   "upper_bound": 656,
+   "status": "closed"
+  },
+  "abz8": {
+   "lower_bound": 667,
+   "upper_bound": 667,
+   "status": "closed"
+  },
+  "abz9": {
+   "lower_bound": 678,
+   "upper_bound": 678,
+   "status": "closed"
+  },
+  "orb01": {
+   "lower_bound": 1059,
+   "upper_bound": 1059,
+   "status": "closed"
+  },
+  "orb02": {
+   "lower_bound": 888,
+   "upper_bound": 888,
+   "status": "closed"
+  },
+  "orb03": {
+   "lower_bound": 1005,
+   "upper_bound": 1005,
+   "status": "closed"
+  },
+  "orb04": {
+   "lower_bound": 1005,
+   "upper_bound": 1005,
+   "status": "closed"
+  },
+  "orb05": {
+   "lower_bound": 887,
+   "upper_bound": 887,
+   "status": "closed"
+  },
+  "orb06": {
+   "lower_bound": 1010,
+   "upper_bound": 1010,
+   "status": "closed"
+  },
+  "orb07": {
+   "lower_bound": 397,
+   "upper_bound": 397,
+   "status": "closed"
+  },
+  "orb08": {
+   "lower_bound": 899,
+   "upper_bound": 899,
+   "status": "closed"
+  },
+  "orb09": {
+   "lower_bound": 934,
+   "upper_bound": 934,
+   "status": "closed"
+  },
+  "orb10": {
+   "lower_bound": 944,
+   "upper_bound": 944,
+   "status": "closed"
+  },
+  "swv01": {
+   "lower_bound": 1407,
+   "upper_bound": 1407,
+   "status": "closed"
+  },
+  "swv02": {
+   "lower_bound": 1475,
+   "upper_bound": 1475,
+   "status": "closed"
+  },
+  "swv03": {
+   "lower_bound": 1398,
+   "upper_bound": 1398,
+   "status": "closed"
+  },
+  "swv04": {
+   "lower_bound": 1464,
+   "upper_bound": 1464,
+   "status": "closed"
+  },
+  "swv05": {
+   "lower_bound": 1424,
+   "upper_bound": 1424,
+   "status": "closed"
+  },
+  "swv06": {
+   "lower_bound": 1667,
+   "upper_bound": 1667,
+   "status": "closed"
+  },
+  "swv07": {
+   "lower_bound": 1541,
+   "upper_bound": 1594,
+   "status": "open"
+  },
+  "swv08": {
+   "lower_bound": 1694,
+   "upper_bound": 1751,
+   "status": "open"
+  },
+  "swv09": {
+   "lower_bound": 1655,
+   "upper_bound": 1655,
+   "status": "closed"
+  },
+  "swv10": {
+   "lower_bound": 1692,
+   "upper_bound": 1743,
+   "status": "open"
+  },
+  "swv11": {
+   "lower_bound": 2983,
+   "upper_bound": 2983,
+   "status": "closed"
+  },
+  "swv12": {
+   "lower_bound": 2972,
+   "upper_bound": 2972,
+   "status": "closed"
+  },
+  "swv13": {
+   "lower_bound": 3104,
+   "upper_bound": 3104,
+   "status": "closed"
+  },
+  "swv14": {
+   "lower_bound": 2968,
+   "upper_bound": 2968,
+   "status": "closed"
+  },
+  "swv15": {
+   "lower_bound": 2885,
+   "upper_bound": 2885,
+   "status": "closed"
+  },
+  "swv16": {
+   "lower_bound": 2924,
+   "upper_bound": 2924,
+   "status": "closed"
+  },
+  "swv17": {
+   "lower_bound": 2794,
+   "upper_bound": 2794,
+   "status": "closed"
+  },
+  "swv18": {
+   "lower_bound": 2852,
+   "upper_bound": 2852,
+   "status": "closed"
+  },
+  "swv19": {
+   "lower_bound": 2843,
+   "upper_bound": 2843,
+   "status": "closed"
+  },
+  "swv20": {
+   "lower_bound": 2823,
+   "upper_bound": 2823,
+   "status": "closed"
+  },
+  "yn1": {
+   "lower_bound": 884,
+   "upper_bound": 884,
+   "status": "closed"
+  },
+  "yn2": {
+   "lower_bound": 904,
+   "upper_bound": 904,
+   "status": "closed"
+  },
+  "yn3": {
+   "lower_bound": 892,
+   "upper_bound": 892,
+   "status": "closed"
+  },
+  "yn4": {
+   "lower_bound": 967,
+   "upper_bound": 967,
+   "status": "closed"
+  }
+ }
+}

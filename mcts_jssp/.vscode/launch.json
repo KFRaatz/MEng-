@@ -1,0 +1,111 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run pilot script (run_pilot.py)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_pilot.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Validate environment",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "validate-env",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Pilot study",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "pilot",
+        "--config",
+        "configs/pilot.yaml",
+        "--set",
+        "pilot.workers=12",
+        "--set",
+        "pilot.available_hours=100"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Train large networks (6x6)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "train",
+        "--config",
+        "configs/base.yaml",
+        "--model",
+        "lr_6x6",
+        "--model",
+        "az_6x6",
+        "--workers",
+        "12"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Train fast networks",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "train-fast",
+        "--config",
+        "configs/base.yaml",
+        "--all"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run fast vs large",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "run",
+        "--config",
+        "configs/experiments/fast.yaml",
+        "--workers",
+        "12"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Analyse fast vs large",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "analyse",
+        "--config",
+        "configs/experiments/fast.yaml"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Smoke test (small, quick)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "mctsjssp",
+      "args": [
+        "run",
+        "--config",
+        "configs/smoke/rq1.yaml",
+        "--workers",
+        "12"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}

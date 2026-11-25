@@ -1,0 +1,12 @@
+inherits: base.yaml
+experiment: rq5
+instances: [ft06, la01, ft10, la06]
+budgets: [{time: 5}]
+stochastic:
+  sigmas: [0.1]
+  scenarios: 5
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: tuned}
+  - {name: LR, model: "lr_6x6_s{sigma}", entropy: tuned}
+  - {name: AZ, model: "az_{size}_s{sigma}", entropy: tuned, instances: [ft06, ft10]}

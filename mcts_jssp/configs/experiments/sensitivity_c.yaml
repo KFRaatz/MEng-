@@ -1,0 +1,22 @@
+# Optional, not part of Table 3.6: sensitivity of the results to the exploration constant c.
+# The thesis fixes c = 1 [126]; this experiment repeats the four configurations with c = sqrt(2) (1.4142), the
+# value of the classic UCT analysis, to check that the ranking of the rollout distributions does not depend on c.
+# c is used only in the tree (UCT selection); the rollouts sample from each distribution as in the experiments.
+# The networks were trained with c = 1 in self-play, so only the search of the experiments is varied.
+inherits: ../base.yaml
+experiment: sensitivity_c
+description: Sensitivity to the exploration constant, c = 1 and c = sqrt(2) (optional check)
+instances: rq5            # 18 instances, one per row of Table 3.3 (every family and size)
+runs: 3
+budgets:
+  - {iterations: 100}
+  - {time: 200}
+configurations:
+  - {name: U, c: 1.0}
+  - {name: U, c: 1.4142}
+  - {name: MWKR, entropy: tuned, c: 1.0}
+  - {name: MWKR, entropy: tuned, c: 1.4142}
+  - {name: LR, model: lr_15x15, entropy: tuned, c: 1.0}
+  - {name: LR, model: lr_15x15, entropy: tuned, c: 1.4142}
+  - {name: AZ, model: "az_{size}", entropy: tuned, c: 1.0, instances: rq5_az}
+  - {name: AZ, model: "az_{size}", entropy: tuned, c: 1.4142, instances: rq5_az}

@@ -1,0 +1,9 @@
+inherits: base.yaml
+experiment: rq4
+instances: [ft06, la01, ft10, la21, la06, la16]
+budgets: [{time: 5}]
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: tuned}
+  - {name: LR, model: lr_6x6, entropy: tuned}
+  - {name: LR, model: lr_10x10, entropy: tuned}

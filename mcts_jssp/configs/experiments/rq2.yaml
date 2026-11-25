@@ -1,0 +1,17 @@
+# RQ2 (Table 3.6): LR against U and MWKR, at equal iterations and at equal time,
+# over all instances and within each size class.  LR uses the networks trained on 15 x 15.
+inherits: ../base.yaml
+experiment: rq2
+description: Learned against fixed rollout distributions at equal iterations and equal time
+instances: all
+budgets:
+  - {iterations: 25}
+  - {iterations: 50}
+  - {iterations: 100}
+  - {iterations: 200}
+  - {time: 50}       # T50: time per decision that U needs for 50 iterations
+  - {time: 200}      # T200
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: tuned}
+  - {name: LR, model: lr_15x15, entropy: tuned}

@@ -1,0 +1,19 @@
+# RQ6 (Table 3.6): the training methods in MCTS.  LR and AZ trained by self-labelling (artifacts/models) against
+# the same networks trained by AlphaZero-style self-play (artifacts/self_play/models, step self_play), as rollout
+# distributions at the tuned entropy level, on the 24 instances whose size equals a training size, each solved
+# with the networks of its own size; U is the reference.  The networks on their own schedules are compared by
+# compare-training (step compare_training).
+inherits: ../base.yaml
+experiment: rq6
+description: Self-labelling against self-play as training methods of the rollout networks
+instances: rq3
+budgets:
+  - {iterations: 100}
+configurations:
+  - {name: U}
+  - {name: LR, label: LR,    model: "lr_{size}",                     entropy: tuned}
+  - {name: LR, label: LR-SP, model: "../self_play/models/lr_{size}", entropy: tuned}
+  - {name: AZ, label: AZ,    model: "az_{size}",                     entropy: tuned}
+  - {name: AZ, label: AZ-SP, model: "../self_play/models/az_{size}", entropy: tuned}
+recording:
+  level: rollouts

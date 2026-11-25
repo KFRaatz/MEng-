@@ -1,0 +1,21 @@
+# Fast against large rollout networks: U, MWKR, the full networks (GIN of LR, FFNN of AZ) and the fast
+# networks (fast LR, fast AZ), on the 24 instances whose size equals a training size, each solved with the
+# networks of its own size.  Train the networks first:
+#   python -m mctsjssp train      --config configs/base.yaml --model lr_6x6 ... --workers N
+#   python -m mctsjssp train-fast --config configs/base.yaml --all
+inherits: ../base.yaml
+experiment: fast
+description: Fast against large rollout networks at equal iterations and equal time
+instances: rq3
+budgets:
+  - {iterations: 100}
+  - {time: 200}
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: [0, 0.5], calibration: own_size}
+  - {name: LR, label: LR,     model: "lr_{size}",  entropy: [0, 0.5]}
+  - {name: AZ, label: AZ,     model: "az_{size}",  entropy: [0, 0.5]}
+  - {name: LR, label: FastLR, model: "flr_{size}", entropy: [0, 0.5]}
+  - {name: AZ, label: FastAZ, model: "faz_{size}", entropy: [0, 0.5]}
+recording:
+  level: rollouts

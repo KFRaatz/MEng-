@@ -1,0 +1,21 @@
+# RQ3 (Table 3.6): MWKR, LR and AZ at every entropy level, on the 24 instances whose size equals a
+# training size, each solved with the networks of its own size.
+inherits: ../base.yaml
+experiment: rq3
+description: Distribution form, network family and entropy
+instances: rq3
+budgets:
+  - {iterations: 100}
+  - {time: 200}
+configurations:
+  - {name: U}                                                    # entropy 1
+  - {name: MWKR, entropy: [0, 0.25, 0.5, 0.75], calibration: own_size}
+  - {name: LR, model: "lr_{size}", entropy: [0, 0.25, 0.5, 0.75]}
+  - {name: AZ, model: "az_{size}", entropy: [0, 0.25, 0.5, 0.75]}
+recording:
+  level: steps          # all three levels at 100 iterations
+  timed_level: rollouts # no step-level overhead in the runs at equal time
+fixed_states:
+  per_instance: 50      # states visited by the rollouts of U, evaluated by every distribution
+  search_iterations: 100   # agreement with U in the search: UCT from the state with each distribution (0 = off)
+  search_per_instance: 10  # ... on the first 10 states of every instance

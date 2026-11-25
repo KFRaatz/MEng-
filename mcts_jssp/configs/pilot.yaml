@@ -1,0 +1,12 @@
+# Pilot study (Section 3.6.3): time per iteration of every configuration, converted into hours of
+# computation for the design of Table 3.6, with the reductions foreseen if it does not fit.
+inherits: base.yaml
+pilot:
+  designs: [experiments/rq1.yaml, experiments/rq2.yaml, experiments/rq3.yaml, experiments/rq4.yaml, experiments/rq5.yaml,
+            experiments/rq6.yaml]   # RQ6: the self-play networks are timed as untrained networks of the same kind
+  iterations: 30              # iterations timed at each depth
+  depths: [0.0, 0.25, 0.5, 0.75]
+  repeats: 3
+  available_hours: 500        # computation time available (core hours / workers)
+  workers: 8                  # processes that will run the experiments
+  large_subset: [la31, abz7, swv06, swv11, yn1]   # large instances kept for the largest LR budget

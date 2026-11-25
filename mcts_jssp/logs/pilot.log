@@ -1,0 +1,216 @@
+48 vCPUs, 24 physical cores -> 24 workers
+[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 32%]
+[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 65%]
+[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 97%]
+[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                    [100%][0m
+[32m[32m[1m221 passed[0m, [33m12 deselected[0m[32m in 33.69s[0m[0m
+settings: study.yaml   workers: 24   steps: validate, pilot
+
+=== validate ====================================================
+
+>>> python -m mctsjssp validate-env --config configs/base.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+Check 1 - schedules: 3936 schedules of 82 instances checked, 0 failures -> PASSED
+
+Mean gap (%) of the dispatching rules in the MDP of the thesis (every unfinished job is a legal action)
+family  FIFO   MOR  MWKR   SPT
+   abz 24.62 24.11 25.89  61.9
+    ft  28.9 26.15 28.26 45.68
+    la 18.89 19.25 18.37 46.92
+   orb 29.74  31.1 31.33 44.85
+   swv  37.4 41.79 35.29 46.16
+    yn  25.9 30.41 29.89 58.48
+
+Mean gap (%) of the same rules as non-delay rules (as implemented in the literature)
+family  FIFO   MOR  MWKR   SPT
+   abz 24.62 17.95 16.58 25.08
+    ft  28.9 23.25 19.63 28.08
+    la 18.89 13.86  12.6 19.96
+   orb 29.74 29.06 25.16  26.3
+   swv  37.4  35.9 28.41  23.1
+    yn  25.9 22.84 19.74 30.67
+
+Published mean gap (%)
+family  FIFO  MOR  MWKR  SPT
+   abz  24.7   18  16.6 25.1
+    ft  28.8 23.2  19.6   28
+    la  18.8 13.8  12.6 19.9
+   orb  29.7   29  25.1 26.2
+   swv  37.3 35.8  28.4   23
+    yn  25.8 22.8  19.7 30.6
+
+Check 2 - dispatching rules: largest difference between the non-delay rules and the published gaps is 0.10 percentage points (tolerance 0.5) -> PASSED
+    (0.2 min)
+
+=== pilot =======================================================
+
+>>> python -m mctsjssp pilot --config configs/pilot.yaml --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set pilot.workers=24 --set pilot.available_hours=40.0
+Pilot study: time per iteration of every configuration
+  AZ     6x6  static         1.586 ms per iteration at the first decision
+  AZ     6x6  stochastic     1.478 ms per iteration at the first decision
+  AZ    10x10 static         4.606 ms per iteration at the first decision
+  AZ    10x10 stochastic     4.625 ms per iteration at the first decision
+  AZ    15x15 static        11.284 ms per iteration at the first decision
+  AZ    15x15 stochastic    11.924 ms per iteration at the first decision
+  LR     6x6  static         3.632 ms per iteration at the first decision
+  LR     6x6  stochastic     3.647 ms per iteration at the first decision
+  LR    10x5  static         5.117 ms per iteration at the first decision
+  LR    10x5  stochastic     5.136 ms per iteration at the first decision
+  LR    10x10 static        10.745 ms per iteration at the first decision
+  LR    10x10 stochastic    10.730 ms per iteration at the first decision
+  LR    15x5  static         7.768 ms per iteration at the first decision
+  LR    15x5  stochastic     7.755 ms per iteration at the first decision
+  LR    15x10 static        16.280 ms per iteration at the first decision
+  LR    15x10 stochastic    16.254 ms per iteration at the first decision
+  LR    15x15 static        25.485 ms per iteration at the first decision
+  LR    15x15 stochastic    25.386 ms per iteration at the first decision
+  LR    20x5  static        10.593 ms per iteration at the first decision
+  LR    20x5  stochastic    10.579 ms per iteration at the first decision
+  LR    20x10 static        22.373 ms per iteration at the first decision
+  LR    20x10 stochastic    22.363 ms per iteration at the first decision
+  LR    20x15 static        34.776 ms per iteration at the first decision
+  LR    20x15 stochastic    34.796 ms per iteration at the first decision
+  LR    20x20 static        48.166 ms per iteration at the first decision
+  LR    20x20 stochastic    48.072 ms per iteration at the first decision
+  LR    30x10 static        34.294 ms per iteration at the first decision
+  LR    30x10 stochastic    34.224 ms per iteration at the first decision
+  LR    50x10 static        59.984 ms per iteration at the first decision
+  LR    50x10 stochastic    59.891 ms per iteration at the first decision
+  MWKR   6x6  static         0.083 ms per iteration at the first decision
+  MWKR   6x6  stochastic     0.113 ms per iteration at the first decision
+  MWKR  10x5  static         0.145 ms per iteration at the first decision
+  MWKR  10x5  stochastic     0.182 ms per iteration at the first decision
+  MWKR  10x10 static         0.292 ms per iteration at the first decision
+  MWKR  10x10 stochastic     0.356 ms per iteration at the first decision
+  MWKR  15x5  static         0.265 ms per iteration at the first decision
+  MWKR  15x5  stochastic     0.310 ms per iteration at the first decision
+  MWKR  15x10 static         0.523 ms per iteration at the first decision
+  MWKR  15x10 stochastic     0.605 ms per iteration at the first decision
+  MWKR  15x15 static         0.786 ms per iteration at the first decision
+  MWKR  15x15 stochastic     0.907 ms per iteration at the first decision
+  MWKR  20x5  static         0.445 ms per iteration at the first decision
+  MWKR  20x5  stochastic     0.474 ms per iteration at the first decision
+  MWKR  20x10 static         0.861 ms per iteration at the first decision
+  MWKR  20x10 stochastic     0.940 ms per iteration at the first decision
+  MWKR  20x15 static         1.264 ms per iteration at the first decision
+  MWKR  20x15 stochastic     1.445 ms per iteration at the first decision
+  MWKR  20x20 static         1.691 ms per iteration at the first decision
+  MWKR  20x20 stochastic     1.917 ms per iteration at the first decision
+  MWKR  30x10 static         1.645 ms per iteration at the first decision
+  MWKR  30x10 stochastic     1.783 ms per iteration at the first decision
+  MWKR  50x10 static         4.123 ms per iteration at the first decision
+  MWKR  50x10 stochastic     4.195 ms per iteration at the first decision
+  U      6x6  static         0.024 ms per iteration at the first decision
+  U      6x6  stochastic     0.052 ms per iteration at the first decision
+  U     10x5  static         0.038 ms per iteration at the first decision
+  U     10x5  stochastic     0.075 ms per iteration at the first decision
+  U     10x10 static         0.067 ms per iteration at the first decision
+  U     10x10 stochastic     0.125 ms per iteration at the first decision
+  U     15x5  static         0.058 ms per iteration at the first decision
+  U     15x5  stochastic     0.104 ms per iteration at the first decision
+  U     15x10 static         0.099 ms per iteration at the first decision
+  U     15x10 stochastic     0.179 ms per iteration at the first decision
+  U     15x15 static         0.138 ms per iteration at the first decision
+  U     15x15 stochastic     0.244 ms per iteration at the first decision
+  U     20x5  static         0.083 ms per iteration at the first decision
+  U     20x5  stochastic     0.139 ms per iteration at the first decision
+  U     20x10 static         0.135 ms per iteration at the first decision
+  U     20x10 stochastic     0.233 ms per iteration at the first decision
+  U     20x15 static         0.195 ms per iteration at the first decision
+  U     20x15 stochastic     0.347 ms per iteration at the first decision
+  U     20x20 static         0.256 ms per iteration at the first decision
+  U     20x20 stochastic     0.470 ms per iteration at the first decision
+  U     30x10 static         0.223 ms per iteration at the first decision
+  U     30x10 stochastic     0.374 ms per iteration at the first decision
+  U     50x10 static         0.479 ms per iteration at the first decision
+  U     50x10 stochastic     0.741 ms per iteration at the first decision
+  FastLR  6x6  static         0.615 ms per iteration at the first decision
+  FastAZ  6x6  static         0.721 ms per iteration at the first decision
+  FastLR  6x6  stochastic     0.619 ms per iteration at the first decision
+  FastAZ  6x6  stochastic     0.727 ms per iteration at the first decision
+  FastLR 10x5  static         1.127 ms per iteration at the first decision
+  FastLR 10x5  stochastic     1.133 ms per iteration at the first decision
+  FastLR 10x10 static         2.229 ms per iteration at the first decision
+  FastAZ 10x10 static         2.607 ms per iteration at the first decision
+  FastLR 10x10 stochastic     2.229 ms per iteration at the first decision
+  FastAZ 10x10 stochastic     2.597 ms per iteration at the first decision
+  FastLR 15x5  static         2.022 ms per iteration at the first decision
+  FastLR 15x5  stochastic     2.008 ms per iteration at the first decision
+  FastLR 15x10 static         4.004 ms per iteration at the first decision
+  FastLR 15x10 stochastic     4.081 ms per iteration at the first decision
+  FastLR 15x15 static         6.164 ms per iteration at the first decision
+  FastAZ 15x15 static         7.089 ms per iteration at the first decision
+  FastLR 15x15 stochastic     6.186 ms per iteration at the first decision
+  FastAZ 15x15 stochastic     7.032 ms per iteration at the first decision
+  FastLR 20x5  static         3.501 ms per iteration at the first decision
+  FastLR 20x5  stochastic     3.517 ms per iteration at the first decision
+  FastLR 20x10 static         7.302 ms per iteration at the first decision
+  FastLR 20x10 stochastic     7.272 ms per iteration at the first decision
+  FastLR 20x15 static        10.766 ms per iteration at the first decision
+  FastLR 20x15 stochastic    10.715 ms per iteration at the first decision
+  FastLR 20x20 static        14.512 ms per iteration at the first decision
+  FastLR 20x20 stochastic    14.660 ms per iteration at the first decision
+  FastLR 30x10 static        13.852 ms per iteration at the first decision
+  FastLR 30x10 stochastic    14.131 ms per iteration at the first decision
+  FastLR 50x10 static        34.887 ms per iteration at the first decision
+  FastLR 50x10 stochastic    34.649 ms per iteration at the first decision
+
+Core hours of the full design, by experiment and configuration
+experiment configuration  runs  core_hours
+       rq1          MWKR  1640       8.553
+       rq1             U  1640       1.173
+       rq2            LR  2460       165.1
+       rq2          MWKR  2460       9.335
+       rq2             U  2460       1.955
+       rq3            AZ   960       6.053
+       rq3            LR   960       13.65
+       rq3          MWKR   960      0.5636
+       rq3             U   240     0.06327
+       rq4            LR  1230       1.997
+       rq4          MWKR   410      0.6257
+       rq4             U   410      0.6257
+       rq5            AZ   180      0.1296
+       rq5            LR   540        1.34
+       rq5          MWKR   180      0.4467
+       rq5             U   180      0.4467
+       rq6            AZ   240       2.942
+       rq6            LR   240       6.732
+       rq6             U   120     0.02109
+
+Design and reductions (wall hours with 24 workers; 40 hours available)
+                                                              design  total_core_hours  wall_hours  fits
+                                            full design of Table 3.6             221.7       9.238  True
+                              1. RQ4 with the 6x6 and 15x15 networks               221        9.21  True
+                            2. RQ3 with the entropy levels 0 and 0.5             210.9       8.788  True
+3. largest iteration budget of LR on a subset of the large instances             150.8       6.285  True
+
+Self-play training: hours per generation in one process
+        model    kind  size  sigma  hours_generation_0  hours_per_later_generation  ms_per_puct_iteration
+       lr_6x6     gin   6x6    NaN           0.0005848                    0.007529                 0.1882
+     lr_10x10     gin 10x10    NaN            0.004141                      0.0285                 0.2565
+     lr_15x15     gin 15x15    NaN             0.01872                     0.09585                 0.3834
+       az_6x6    ffnn   6x6    NaN           0.0005848                    0.005616                 0.1404
+     az_10x10    ffnn 10x10    NaN            0.004141                     0.01864                 0.1678
+     az_15x15    ffnn 15x15    NaN             0.01872                     0.05638                 0.2255
+lr_15x15_s010     gin 15x15    0.1             0.04411                     0.09833                 0.3933
+lr_15x15_s020     gin 15x15    0.2             0.04411                     0.09682                 0.3873
+  az_6x6_s010    ffnn   6x6    0.1            0.001646                    0.005564                 0.1391
+az_10x10_s010    ffnn 10x10    0.1             0.01016                     0.01772                 0.1595
+az_15x15_s010    ffnn 15x15    0.1             0.04411                      0.0561                 0.2244
+  az_6x6_s020    ffnn   6x6    0.2            0.001646                    0.005441                  0.136
+az_10x10_s020    ffnn 10x10    0.2             0.01016                     0.01859                 0.1673
+az_15x15_s020    ffnn 15x15    0.2             0.04411                     0.05612                 0.2245
+      flr_6x6 fast_lr   6x6    NaN           0.0005848                    0.002674                0.06686
+    flr_10x10 fast_lr 10x10    NaN            0.004141                    0.008789                 0.0791
+    flr_15x15 fast_lr 15x15    NaN             0.01872                     0.02439                0.09756
+      faz_6x6 fast_az   6x6    NaN           0.0005848                    0.002482                0.06204
+    faz_10x10 fast_az 10x10    NaN            0.004141                     0.00854                0.07686
+    faz_15x15 fast_az 15x15    NaN             0.01872                     0.02331                0.09323
+
+Tables written to /home/sagemaker-user/mcts_jssp/results/pilot
+    (3.1 min)
+
+Done in 0.05 h.  Results: results/, analyses: results/<experiment>/analysis/, comparisons: results/compare/ and results/visited_states/

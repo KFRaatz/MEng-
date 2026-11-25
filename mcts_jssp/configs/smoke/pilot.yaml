@@ -1,0 +1,9 @@
+inherits: base.yaml
+pilot:
+  designs: [rq1.yaml, rq2.yaml, rq3.yaml, rq4.yaml, rq5.yaml]
+  iterations: 5
+  depths: [0.0, 0.5]
+  repeats: 1
+  available_hours: 1
+  workers: 2
+  large_subset: [la31]

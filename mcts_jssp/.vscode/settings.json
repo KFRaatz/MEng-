@@ -1,0 +1,9 @@
+{
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": ["tests", "-m", "not slow"],
+  "python.analysis.extraPaths": ["src"],
+  "terminal.integrated.env.windows": {"OMP_NUM_THREADS": "1"},
+  "terminal.integrated.env.linux": {"OMP_NUM_THREADS": "1"},
+  "terminal.integrated.env.osx": {"OMP_NUM_THREADS": "1"}
+}

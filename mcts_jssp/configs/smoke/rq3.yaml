@@ -1,0 +1,15 @@
+inherits: base.yaml
+experiment: rq3
+instances: [ft06, ft10, la16, orb01]
+budgets: [{iterations: 10}, {time: 10}]
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: [0, 0.25, 0.5, 0.75], calibration: own_size}
+  - {name: LR, model: "lr_{size}", entropy: [0, 0.25, 0.5, 0.75]}
+  - {name: AZ, model: "az_{size}", entropy: [0, 0.25, 0.5, 0.75]}
+recording:
+  level: steps
+  timed_level: rollouts
+  step_rate: 0.02
+fixed_states:
+  per_instance: 5

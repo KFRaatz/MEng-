@@ -1,0 +1,102 @@
+pipeline:
+  workers: 24
+  session_hours: 20
+  available_hours: 40.0
+  steps:
+  - validate
+  - pilot
+  - train
+  - check
+  - self_play
+  - compare_training
+  - select_entropy
+  - disturbed
+  - run
+  - fixed_states
+  - analyse
+  - compare
+  experiments:
+  - rq1
+  - rq2
+  - rq3
+  - rq4
+  - rq5
+  - fast
+  - sensitivity_c
+  - rq6
+  compare:
+  - rq1
+  - rq2
+  - rq3
+  - rq4
+  - fast
+  budget_generations: 50
+  stop_if_not_learned:
+  - lr_
+  - flr_
+  min_improvement_pct: 0.0
+  check_minutes: 30
+settings:
+  training.method: self_label
+  training.self_label:
+    samples: 32
+    instances: 64
+    epochs: 4
+    window: 3
+    learning_rate: 0.001
+    temperature: 1.0
+    iterations: 50
+    patience: 10
+    min_iterations: 20
+    select: mean
+    init: curriculum
+    augment: true
+    teacher:
+      ffnn: lr
+      fast_az: flr
+  training.verbose: 2
+  training.max_hours: null
+experiment_settings:
+  rq2:
+    recording.rollout_sequences: 0.01
+  rq3:
+    recording.rollout_sequences: 0.05
+  fast:
+    recording.rollout_sequences: 0.01
+fixed:
+  seed: 3
+  runs: 5
+  search.c: 1.0
+  search.skip_forced: true
+  entropy.levels:
+  - 0.0
+  - 0.25
+  - 0.5
+  - 0.75
+  time_budget.profile: mean
+  time_budget.repeats: 3
+  stochastic.scenarios: 30
+  training.batch_size: 256
+  training.weight_decay: 0.0005
+  training.validation_instances: 100
+  analysis.alpha: 0.05
+  analysis.zero_method: zsplit
+self_play:
+  models:
+  - lr_6x6
+  - lr_10x10
+  - lr_15x15
+  - az_6x6
+  - az_10x10
+  - az_15x15
+  artifacts: artifacts/self_play
+  settings:
+    training.min_generations: 10
+    training.patience: 5
+    training.max_generations: 50
+    training.use_tuned: false
+    training.warm_start: null
+    training.budget_model_steps: null
+    training.leaf_rollouts: false
+    training.value_target: outcome
+    training.normalize_q: false

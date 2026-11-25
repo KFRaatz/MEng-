@@ -1,0 +1,267 @@
+settings: study.yaml   workers: 24   steps: run
+
+=== run =========================================================
+
+>>> python -m mctsjssp run --config configs/experiments/rq1.yaml --workers 24 --hours 20.00 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rq1: 3280 runs planned, 0 already done, 3280 to run -> /home/sagemaker-user/mcts_jssp/results/rq1-0dbc859e
+  164/3280 runs, 0.1 min elapsed, about 1.9 min left
+  328/3280 runs, 0.1 min elapsed, about 1.2 min left
+  492/3280 runs, 0.2 min elapsed, about 1.1 min left
+  656/3280 runs, 0.3 min elapsed, about 1.3 min left
+  820/3280 runs, 0.6 min elapsed, about 1.9 min left
+  984/3280 runs, 0.8 min elapsed, about 1.9 min left
+  1148/3280 runs, 0.9 min elapsed, about 1.6 min left
+  1312/3280 runs, 1.1 min elapsed, about 1.6 min left
+  1476/3280 runs, 2.1 min elapsed, about 2.6 min left
+  1640/3280 runs, 3.0 min elapsed, about 3.0 min left
+  1804/3280 runs, 3.1 min elapsed, about 2.6 min left
+  1968/3280 runs, 3.3 min elapsed, about 2.2 min left
+  2132/3280 runs, 3.5 min elapsed, about 1.9 min left
+  2296/3280 runs, 4.2 min elapsed, about 1.8 min left
+  2460/3280 runs, 6.0 min elapsed, about 2.0 min left
+  2624/3280 runs, 6.8 min elapsed, about 1.7 min left
+  2788/3280 runs, 7.1 min elapsed, about 1.2 min left
+  2952/3280 runs, 8.2 min elapsed, about 0.9 min left
+  3116/3280 runs, 15.6 min elapsed, about 0.8 min left
+  3280/3280 runs, 22.5 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rq1-0dbc859e
+    (22.6 min)
+
+>>> python -m mctsjssp run --config configs/experiments/rq2.yaml --workers 24 --hours 19.62 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.01
+measuring 164 time budgets with U ...
+rq2: 7380 runs planned, 0 already done, 7380 to run -> /home/sagemaker-user/mcts_jssp/results/rq2-c5211bf5
+  369/7380 runs, 0.1 min elapsed, about 1.1 min left
+  738/7380 runs, 0.2 min elapsed, about 1.7 min left
+  1107/7380 runs, 0.7 min elapsed, about 4.1 min left
+  1476/7380 runs, 1.2 min elapsed, about 4.9 min left
+  1845/7380 runs, 1.4 min elapsed, about 4.3 min left
+  2214/7380 runs, 3.4 min elapsed, about 7.9 min left
+  2583/7380 runs, 5.0 min elapsed, about 9.3 min left
+  2952/7380 runs, 5.2 min elapsed, about 7.8 min left
+  3321/7380 runs, 5.7 min elapsed, about 7.0 min left
+  3690/7380 runs, 8.2 min elapsed, about 8.2 min left
+  4059/7380 runs, 9.4 min elapsed, about 7.7 min left
+  4428/7380 runs, 10.8 min elapsed, about 7.2 min left
+  4797/7380 runs, 23.6 min elapsed, about 12.7 min left
+  5166/7380 runs, 28.2 min elapsed, about 12.1 min left
+  5535/7380 runs, 35.4 min elapsed, about 11.8 min left
+  5904/7380 runs, 61.3 min elapsed, about 15.3 min left
+  6273/7380 runs, 120.2 min elapsed, about 21.2 min left
+  6642/7380 runs, 148.6 min elapsed, about 16.5 min left
+  7011/7380 runs, 239.6 min elapsed, about 12.6 min left
+  7380/7380 runs, 492.4 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rq2-c5211bf5
+    (494.4 min)
+
+>>> python -m mctsjssp run --config configs/experiments/rq3.yaml --workers 24 --hours 11.38 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.05
+calibrating 18 temperatures in parallel
+temperature LR|lr_10x10|10x10|H0.25: tau = 0.013577, realised entropy 0.243
+temperature LR|lr_10x10|10x10|H0.5: tau = 0.04217, realised entropy 0.500
+temperature LR|lr_10x10|10x10|H0.75: tau = 0.11548, realised entropy 0.746
+temperature AZ|az_10x10|10x10|H0.25: tau = 0.11548, realised entropy 0.242
+temperature AZ|az_10x10|10x10|H0.5: tau = 0.31623, realised entropy 0.494
+temperature AZ|az_10x10|10x10|H0.75: tau = 0.86596, realised entropy 0.752
+temperature LR|lr_6x6|6x6|H0.25: tau = 0.0015963, realised entropy 0.247
+temperature LR|lr_6x6|6x6|H0.5: tau = 0.0056234, realised entropy 0.505
+temperature LR|lr_6x6|6x6|H0.75: tau = 0.01981, realised entropy 0.748
+temperature AZ|az_6x6|6x6|H0.25: tau = 0.24582, realised entropy 0.245
+temperature AZ|az_6x6|6x6|H0.5: tau = 0.71692, realised entropy 0.507
+temperature AZ|az_6x6|6x6|H0.75: tau = 1.8434, realised entropy 0.746
+temperature MWKR|-|10x10|H0.25: tau = 0.015399, realised entropy 0.250
+temperature MWKR|-|10x10|H0.5: tau = 0.047829, realised entropy 0.491
+temperature MWKR|-|10x10|H0.75: tau = 0.14855, realised entropy 0.755
+temperature MWKR|-|6x6|H0.25: tau = 0.028903, realised entropy 0.255
+temperature MWKR|-|6x6|H0.5: tau = 0.079148, realised entropy 0.492
+temperature MWKR|-|6x6|H0.75: tau = 0.20351, realised entropy 0.745
+rq3: 3120 runs planned, 0 already done, 3120 to run -> /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef
+  156/3120 runs, 0.5 min elapsed, about 8.9 min left
+  312/3120 runs, 0.7 min elapsed, about 6.1 min left
+  468/3120 runs, 1.0 min elapsed, about 5.4 min left
+  624/3120 runs, 2.1 min elapsed, about 8.5 min left
+  780/3120 runs, 3.2 min elapsed, about 9.7 min left
+  936/3120 runs, 3.5 min elapsed, about 8.2 min left
+  1092/3120 runs, 3.8 min elapsed, about 7.1 min left
+  1248/3120 runs, 4.2 min elapsed, about 6.3 min left
+  1404/3120 runs, 7.2 min elapsed, about 8.9 min left
+  1560/3120 runs, 21.1 min elapsed, about 21.1 min left
+  1716/3120 runs, 35.1 min elapsed, about 28.7 min left
+  1872/3120 runs, 39.0 min elapsed, about 26.0 min left
+  2028/3120 runs, 41.9 min elapsed, about 22.6 min left
+  2184/3120 runs, 44.2 min elapsed, about 19.0 min left
+  2340/3120 runs, 45.8 min elapsed, about 15.3 min left
+  2496/3120 runs, 49.4 min elapsed, about 12.4 min left
+  2652/3120 runs, 57.1 min elapsed, about 10.1 min left
+  2808/3120 runs, 58.7 min elapsed, about 6.5 min left
+  2964/3120 runs, 60.0 min elapsed, about 3.2 min left
+  3120/3120 runs, 61.7 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rq3-627f09ef
+    (63.0 min)
+
+>>> python -m mctsjssp run --config configs/experiments/rq4.yaml --workers 24 --hours 10.33 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+rq4: 2050 runs planned, 0 already done, 2050 to run -> /home/sagemaker-user/mcts_jssp/results/rq4-972d6c55
+  102/2050 runs, 0.1 min elapsed, about 2.5 min left
+  204/2050 runs, 0.4 min elapsed, about 3.5 min left
+  306/2050 runs, 0.5 min elapsed, about 3.1 min left
+  408/2050 runs, 1.6 min elapsed, about 6.4 min left
+  510/2050 runs, 1.7 min elapsed, about 5.1 min left
+  612/2050 runs, 1.9 min elapsed, about 4.6 min left
+  714/2050 runs, 2.1 min elapsed, about 3.9 min left
+  816/2050 runs, 3.2 min elapsed, about 4.8 min left
+  918/2050 runs, 3.3 min elapsed, about 4.0 min left
+  1020/2050 runs, 3.6 min elapsed, about 3.6 min left
+  1122/2050 runs, 3.8 min elapsed, about 3.1 min left
+  1224/2050 runs, 5.1 min elapsed, about 3.5 min left
+  1326/2050 runs, 5.3 min elapsed, about 2.9 min left
+  1428/2050 runs, 5.6 min elapsed, about 2.4 min left
+  1530/2050 runs, 5.8 min elapsed, about 2.0 min left
+  1632/2050 runs, 7.1 min elapsed, about 1.8 min left
+  1734/2050 runs, 7.2 min elapsed, about 1.3 min left
+  1836/2050 runs, 7.6 min elapsed, about 0.9 min left
+  1938/2050 runs, 7.8 min elapsed, about 0.5 min left
+  2040/2050 runs, 9.2 min elapsed, about 0.0 min left
+  2050/2050 runs, 9.5 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rq4-972d6c55
+    (9.6 min)
+
+>>> python -m mctsjssp run --config configs/experiments/rq5.yaml --workers 24 --hours 10.17 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+measuring 36 time budgets with U ...
+calibrating 12 temperatures in parallel
+temperature AZ|az_15x15_s010|15x15|H0.75: tau = 0.13097, realised entropy 0.751
+temperature AZ|az_15x15_s020|15x15|H0.75: tau = 0.13097, realised entropy 0.751
+temperature AZ|../scratch/models/az_15x15_s010|15x15|H0.75: tau = 0.46138, realised entropy 0.751
+temperature AZ|../scratch/models/az_15x15_s020|15x15|H0.75: tau = 0.35866, realised entropy 0.746
+temperature AZ|az_10x10_s010|10x10|H0.75: tau = 0.86596, realised entropy 0.752
+temperature AZ|az_10x10_s020|10x10|H0.75: tau = 0.86596, realised entropy 0.752
+temperature AZ|../scratch/models/az_10x10_s010|10x10|H0.75: tau = 0.92224, realised entropy 0.749
+temperature AZ|../scratch/models/az_10x10_s020|10x10|H0.75: tau = 0.76351, realised entropy 0.747
+temperature AZ|az_6x6_s010|6x6|H0.75: tau = 1.114, realised entropy 0.749
+temperature AZ|az_6x6_s020|6x6|H0.75: tau = 0.86596, realised entropy 0.750
+temperature AZ|../scratch/models/az_6x6_s010|6x6|H0.75: tau = 1.9632, realised entropy 0.751
+temperature AZ|../scratch/models/az_6x6_s020|6x6|H0.75: tau = 1.6253, realised entropy 0.746
+rq5: 1080 runs planned, 0 already done, 1080 to run -> /home/sagemaker-user/mcts_jssp/results/rq5-d8cd2ac6
+  54/1080 runs, 0.1 min elapsed, about 2.7 min left
+  108/1080 runs, 0.4 min elapsed, about 3.6 min left
+  162/1080 runs, 0.8 min elapsed, about 4.6 min left
+  216/1080 runs, 1.1 min elapsed, about 4.5 min left
+  270/1080 runs, 1.5 min elapsed, about 4.5 min left
+  324/1080 runs, 1.8 min elapsed, about 4.2 min left
+  378/1080 runs, 2.1 min elapsed, about 3.9 min left
+  432/1080 runs, 2.6 min elapsed, about 3.9 min left
+  486/1080 runs, 2.9 min elapsed, about 3.5 min left
+  540/1080 runs, 3.3 min elapsed, about 3.3 min left
+  594/1080 runs, 3.7 min elapsed, about 3.1 min left
+  648/1080 runs, 4.0 min elapsed, about 2.7 min left
+  702/1080 runs, 4.5 min elapsed, about 2.4 min left
+  756/1080 runs, 4.8 min elapsed, about 2.1 min left
+  810/1080 runs, 5.3 min elapsed, about 1.8 min left
+  864/1080 runs, 5.6 min elapsed, about 1.4 min left
+  918/1080 runs, 6.0 min elapsed, about 1.1 min left
+  972/1080 runs, 6.2 min elapsed, about 0.7 min left
+  1026/1080 runs, 6.3 min elapsed, about 0.3 min left
+  1080/1080 runs, 6.7 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rq5-d8cd2ac6
+    (10.8 min)
+
+>>> python -m mctsjssp run --config configs/experiments/fast.yaml --workers 24 --hours 9.99 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null --set recording.rollout_sequences=0.01
+calibrating 6 temperatures in parallel
+temperature LR|flr_15x15|15x15|H0.5: tau = 0.27881, realised entropy 0.509
+temperature AZ|faz_15x15|15x15|H0.5: tau = 0.98217, realised entropy 0.493
+temperature LR|flr_10x10|10x10|H0.5: tau = 0.40679, realised entropy 0.504
+temperature AZ|faz_10x10|10x10|H0.5: tau = 2.0908, realised entropy 0.493
+temperature LR|flr_6x6|6x6|H0.5: tau = 0.40679, realised entropy 0.502
+temperature AZ|faz_6x6|6x6|H0.5: tau = 2.3714, realised entropy 0.502
+fast: 2640 runs planned, 0 already done, 2640 to run -> /home/sagemaker-user/mcts_jssp/results/fast-b5c6bddb
+  132/2640 runs, 0.1 min elapsed, about 2.3 min left
+  264/2640 runs, 0.2 min elapsed, about 1.5 min left
+  396/2640 runs, 0.3 min elapsed, about 1.7 min left
+  528/2640 runs, 0.6 min elapsed, about 2.4 min left
+  660/2640 runs, 0.7 min elapsed, about 2.0 min left
+  792/2640 runs, 1.6 min elapsed, about 3.8 min left
+  924/2640 runs, 9.2 min elapsed, about 17.1 min left
+  1056/2640 runs, 16.2 min elapsed, about 24.2 min left
+  1188/2640 runs, 18.6 min elapsed, about 22.7 min left
+  1320/2640 runs, 19.7 min elapsed, about 19.7 min left
+  1452/2640 runs, 23.9 min elapsed, about 19.6 min left
+  1584/2640 runs, 25.0 min elapsed, about 16.7 min left
+  1716/2640 runs, 25.8 min elapsed, about 13.9 min left
+  1848/2640 runs, 27.2 min elapsed, about 11.6 min left
+  1980/2640 runs, 28.6 min elapsed, about 9.5 min left
+  2112/2640 runs, 29.2 min elapsed, about 7.3 min left
+  2244/2640 runs, 29.6 min elapsed, about 5.2 min left
+  2376/2640 runs, 32.3 min elapsed, about 3.6 min left
+  2508/2640 runs, 32.9 min elapsed, about 1.7 min left
+  2640/2640 runs, 33.6 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/fast-b5c6bddb
+    (34.7 min)
+
+>>> python -m mctsjssp run --config configs/experiments/sensitivity_c.yaml --workers 24 --hours 9.42 --set seed=3 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+sensitivity_c: 720 runs planned, 0 already done, 720 to run -> /home/sagemaker-user/mcts_jssp/results/sensitivity_c-5fead424
+  36/720 runs, 0.1 min elapsed, about 1.8 min left
+  72/720 runs, 0.2 min elapsed, about 1.4 min left
+  108/720 runs, 0.2 min elapsed, about 1.3 min left
+  144/720 runs, 0.3 min elapsed, about 1.1 min left
+  180/720 runs, 0.4 min elapsed, about 1.1 min left
+  216/720 runs, 0.5 min elapsed, about 1.1 min left
+  252/720 runs, 0.6 min elapsed, about 1.0 min left
+  288/720 runs, 0.7 min elapsed, about 1.1 min left
+  324/720 runs, 0.9 min elapsed, about 1.1 min left
+  360/720 runs, 1.0 min elapsed, about 1.0 min left
+  396/720 runs, 1.2 min elapsed, about 1.0 min left
+  432/720 runs, 1.5 min elapsed, about 1.0 min left
+  468/720 runs, 2.3 min elapsed, about 1.3 min left
+  504/720 runs, 3.7 min elapsed, about 1.6 min left
+  540/720 runs, 7.5 min elapsed, about 2.5 min left
+  576/720 runs, 10.2 min elapsed, about 2.6 min left
+  612/720 runs, 13.5 min elapsed, about 2.4 min left
+  648/720 runs, 17.9 min elapsed, about 2.0 min left
+  684/720 runs, 19.7 min elapsed, about 1.0 min left
+  720/720 runs, 40.3 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/sensitivity_c-5fead424
+    (40.4 min)
+
+>>> python -m mctsjssp run --config configs/experiments/rq6.yaml --workers 24 --hours 8.74 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null
+calibrating 3 temperatures in parallel
+temperature AZ|../self_play/models/az_15x15|15x15|H0.75: tau = 0.27881, realised entropy 0.742
+temperature AZ|../self_play/models/az_10x10|10x10|H0.75: tau = 0.27881, realised entropy 0.744
+temperature AZ|../self_play/models/az_6x6|6x6|H0.75: tau = 0.04217, realised entropy 0.759
+rq6: 600 runs planned, 0 already done, 600 to run -> /home/sagemaker-user/mcts_jssp/results/rq6-b71cd023
+  30/600 runs, 0.0 min elapsed, about 0.2 min left
+  60/600 runs, 0.0 min elapsed, about 0.4 min left
+  90/600 runs, 0.0 min elapsed, about 0.3 min left
+  120/600 runs, 0.1 min elapsed, about 0.3 min left
+  150/600 runs, 1.6 min elapsed, about 4.8 min left
+  180/600 runs, 6.8 min elapsed, about 15.9 min left
+  210/600 runs, 7.7 min elapsed, about 14.2 min left
+  240/600 runs, 8.4 min elapsed, about 12.7 min left
+  270/600 runs, 9.5 min elapsed, about 11.6 min left
+  300/600 runs, 14.1 min elapsed, about 14.1 min left
+  330/600 runs, 14.9 min elapsed, about 12.2 min left
+  360/600 runs, 15.7 min elapsed, about 10.5 min left
+  390/600 runs, 16.3 min elapsed, about 8.8 min left
+  420/600 runs, 18.5 min elapsed, about 7.9 min left
+  450/600 runs, 19.0 min elapsed, about 6.3 min left
+  480/600 runs, 19.4 min elapsed, about 4.9 min left
+  510/600 runs, 19.9 min elapsed, about 3.5 min left
+  540/600 runs, 22.0 min elapsed, about 2.4 min left
+  570/600 runs, 22.5 min elapsed, about 1.2 min left
+  600/600 runs, 23.5 min elapsed, about 0.0 min left
+results: /home/sagemaker-user/mcts_jssp/results/rq6-b71cd023
+    (24.8 min)
+
+Done in 11.67 h.  Results: results/, analyses: results/<experiment>/analysis/, comparisons: results/compare/ and results/visited_states/

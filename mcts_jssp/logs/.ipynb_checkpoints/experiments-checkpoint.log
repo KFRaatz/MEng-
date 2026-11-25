@@ -1,0 +1,7 @@
+settings: study.yaml   workers: 24   steps: run
+
+=== run =========================================================
+
+>>> python -m mctsjssp run --config configs/experiments/rq1.yaml --workers 24 --hours 20.00 --set seed=3 --set runs=5 --set search.c=1.0 --set search.skip_forced=true --set "entropy.levels=[0.0, 0.25, 0.5, 0.75]" --set time_budget.profile=mean --set time_budget.repeats=3 --set stochastic.scenarios=30 --set training.batch_size=256 --set training.weight_decay=0.0005 --set training.validation_instances=100 --set analysis.alpha=0.05 --set analysis.zero_method=zsplit --set training.method=self_label --set "training.self_label={augment: true, epochs: 4, init: curriculum, instances: 64, iterations: 50, learning_rate: 0.001,
+  min_iterations: 20, patience: 10, samples: 32, select: mean, teacher: {fast_az: flr,
+    ffnn: lr}, temperature: 1.0, window: 3}" --set training.verbose=2 --set training.max_hours=null

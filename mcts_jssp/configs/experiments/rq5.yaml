@@ -1,0 +1,24 @@
+# RQ5 (Table 3.6): processing-time disturbances.  Two questions: (1) does a rollout distribution trained with
+# disturbances do better under disturbances than the same network trained without them, fine-tuned from it (FT) or
+# trained from scratch (SC)?  (2) is a network trained without disturbances (LR, AZ) robust to them, against U and
+# MWKR?  All learned distributions at the entropy level chosen outside RQ3 (each network with its own temperature);
+# AZ on the six instances whose size equals a training size.  The networks trained from scratch are in
+# artifacts/scratch (run_pipeline.py --steps disturbed).
+inherits: ../base.yaml
+experiment: rq5
+description: Robustness under processing-time disturbances
+instances: rq5
+budgets:
+  - {time: 200}
+stochastic:
+  sigmas: [0.1, 0.2]
+  scenarios: 30
+configurations:
+  - {name: U}
+  - {name: MWKR, entropy: tuned}
+  - {name: LR, label: LR, model: lr_15x15, entropy: tuned}
+  - {name: LR, label: LR-FT, model: "lr_15x15_s{sigma}", entropy: tuned}
+  - {name: LR, label: LR-SC, model: "../scratch/models/lr_15x15_s{sigma}", entropy: tuned}
+  - {name: AZ, label: AZ, model: "az_{size}", entropy: tuned, instances: rq5_az}
+  - {name: AZ, label: AZ-FT, model: "az_{size}_s{sigma}", entropy: tuned, instances: rq5_az}
+  - {name: AZ, label: AZ-SC, model: "../scratch/models/az_{size}_s{sigma}", entropy: tuned, instances: rq5_az}
